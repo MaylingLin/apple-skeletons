@@ -5,7 +5,7 @@ from apple_model.apple_optimizer import AppleOptimizer
 import pymeshlab
 
 if __name__ == "__main__":
-    mesh_path = r"C:\Users\douba\Desktop\cropped_1_warpped_color.ply"
+    mesh_path = "examples/apple_mesh.ply"
     mesh = o3d.io.read_triangle_mesh(mesh_path)
     pcd = mesh.sample_points_uniformly(number_of_points=10000)
     o3d.visualization.draw_geometries([pcd])
@@ -35,7 +35,7 @@ if __name__ == "__main__":
     color = [(1, 0, 0) for _ in np.asarray(optimizer.optimized_model.pcd.points)]
     optimizer.optimized_model.colors = o3d.utility.Vector3dVector(color)
 
-    tmp_dir = r'C:\Users\douba\Desktop\aligned_target_and_src.ply'
+    tmp_dir = "examples/apple_mesh.ply"
     o3d.io.write_point_cloud(tmp_dir, optimizer.optimized_model.pcd)
 
     ms = pymeshlab.MeshSet()

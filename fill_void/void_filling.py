@@ -12,8 +12,8 @@ def display_inlier_outlier(cloud, ind):
 
 
 if __name__ == '__main__':
-    res_pcd = o3d.io.read_point_cloud(r'D:\Projects\dust3r\fill_void\res.pcd')
-    target_pcd = o3d.io.read_point_cloud(r'D:\Projects\dust3r\fill_void\target.pcd')
+    res_pcd = o3d.io.read_point_cloud("\fill_void\res.pcd")
+    target_pcd = o3d.io.read_point_cloud("\fill_void\target.pcd")
     o3d.visualization.draw_geometries([res_pcd, target_pcd])
 
     total_pcd = res_pcd + target_pcd

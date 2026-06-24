@@ -4,7 +4,7 @@ import cv2
 import numpy as np
 import shutil
 
-root_dir = r"D:\Projects\dust3r\data\0908"
+root_dir = "\data"
 source_path = '3D'
 
 rgb_output_dir = os.path.join(root_dir, 'output', 'images')

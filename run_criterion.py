@@ -93,7 +93,7 @@ if __name__ == '__main__':
     # you can put the path to a local checkpoint in model_name if needed
     model = AsymmetricCroCo3DStereo.from_pretrained(model_name).to(device)
     # load_images can take a list of images or a directory
-    data_root_dir = r'D:\Projects\dust3r\data\eval_data\eval8'
+    data_root_dir = "data/apple/eval_data/eval8"
     gt_metrics = [74.5, 84.4, 88.72, 337.5]
 
     images = load_images([os.path.join(data_root_dir, 'images_cropped', '0000000{}.jpg'.format(idx1)),
@@ -160,45 +160,6 @@ if __name__ == '__main__':
     optimizer.opt_with_cpd()
     rotate(optimizer.optimized_model, optimizer.target_original)
     print('opt res = {}'.format(optimizer.opt_res))
-    # o3d.io.write_point_cloud(r'D:\Projects\dust3r\fill_void\res.pcd', optimizer.optimized_model.pcd)
-    # o3d.io.write_point_cloud(r'D:\Projects\dust3r\fill_void\target.pcd', optimizer.target_original)
-    # optimizer.vis_res()
-
-    # visualize reconstruction
-    # scene.show()
-
-    # find 2D-2D matches between the two images
-    # from dust3r.utils.geometry import find_reciprocal_matches, xy_grid
-    #
-    # pts2d_list, pts3d_list = [], []
-    # for i in range(2):
-    #     conf_i = confidence_masks[i].cpu().numpy()
-    #     pts2d_list.append(xy_grid(*imgs[i].shape[:2][::-1])[conf_i])  # imgs[i].shape[:2] = (H, W)
-    #     pts3d_list.append(pts3d[i].detach().cpu().numpy()[conf_i])
-    # reciprocal_in_P2, nn2_in_P1, num_matches = find_reciprocal_matches(*pts3d_list)
-    # print(f'found {num_matches} matches')
-    # matches_im1 = pts2d_list[1][reciprocal_in_P2]
-    # matches_im0 = pts2d_list[0][nn2_in_P1][reciprocal_in_P2]
-
-    # visualize a few matches
-    # import numpy as np
-    # from matplotlib import pyplot as pl
-    #
-    # n_viz = 10
-    # match_idx_to_viz = np.round(np.linspace(0, num_matches - 1, n_viz)).astype(int)
-    # viz_matches_im0, viz_matches_im1 = matches_im0[match_idx_to_viz], matches_im1[match_idx_to_viz]
-    #
-    # H0, W0, H1, W1 = *imgs[0].shape[:2], *imgs[1].shape[:2]
-    # img0 = np.pad(imgs[0], ((0, max(H1 - H0, 0)), (0, 0), (0, 0)), 'constant', constant_values=0)
-    # img1 = np.pad(imgs[1], ((0, max(H0 - H1, 0)), (0, 0), (0, 0)), 'constant', constant_values=0)
-    # img = np.concatenate((img0, img1), axis=1)
-    # pl.figure()
-    # pl.imshow(img)
-    # cmap = pl.get_cmap('jet')
-    # for i in range(n_viz):
-    #     (x0, y0), (x1, y1) = viz_matches_im0[i].T, viz_matches_im1[i].T
-    #     pl.plot([x0, x1 + W0], [y0, y1], '-+', color=cmap(i / (n_viz - 1)), scalex=False, scaley=False)
-    # pl.show(block=True)
 
     # reconstruct surface
     volume = run_surface_recon(model_path='aligned.ply')

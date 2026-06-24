@@ -70,7 +70,7 @@ if __name__ == '__main__':
 
     model = AsymmetricCroCo3DStereo.from_pretrained(model_name).to(device)
     # load_images can take a list of images or a directory
-    data_root = r'D:\datasets\apple\defect_ratio_test'
+    data_root = "data/apple/defect_ratio_test"
     images = load_images(os.path.join(data_root, 'subset'), size=224)
     pairs = make_pairs(images, scene_graph='complete', prefilter=None, symmetrize=True)
     output = inference(pairs, model, device, batch_size=batch_size)
@@ -174,6 +174,4 @@ if __name__ == '__main__':
     optimizer.opt_with_cpd()
     rotate(optimizer.optimized_model, optimizer.target_original)
     print('opt res = {}'.format(optimizer.opt_res))
-    # o3d.io.write_point_cloud(r'D:\Projects\dust3r\fill_void\res.pcd', optimizer.optimized_model.pcd)
-    # o3d.io.write_point_cloud(r'D:\Projects\dust3r\fill_void\target.pcd', optimizer.target_original)
     optimizer.vis_res()
